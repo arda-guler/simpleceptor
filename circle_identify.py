@@ -93,9 +93,6 @@ def autotrain(steps):
 
         if ident.get_active() and is_correct:
             # correctly identified as True
-            for pc in photocells:
-                if pc.get_active():
-                    pc.increaseWeight(incr)
             correct_ids += 1
             
         elif ident.get_active() and not is_correct:
@@ -106,9 +103,6 @@ def autotrain(steps):
                     
         elif (not ident.get_active()) and is_correct:
             # correctly identified as False
-            for pc in photocells:
-                if pc.get_active():
-                    pc.decreaseWeight(incr)
             correct_ids += 1
                     
         else:

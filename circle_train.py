@@ -29,7 +29,7 @@ def get_pixel_brightness(rgb):
 
     return (r + g + b)/(765) # 255 * 3 = 765
         
-def autotrain(steps):
+def autotrain(target_accuracy_percent, min_steps=500):
     clear_cmd_terminal()
 
     # set AI initial variables
@@ -111,7 +111,7 @@ def autotrain(steps):
                 if pc.get_active():
                     pc.increaseWeight(incr)
 
-        if run_step >= steps:
+        if (correct_ids/run_step)*100 >= target_accuracy_percent and run_step >= min_steps:
             photocell_weights = photo_intelligence.get_photocellWeights()
             save_image = Image.new(mode="RGB", size=(256,256))
             save_pixels = save_image.load()
@@ -130,7 +130,7 @@ def autotrain(steps):
             return photo_intelligence
 
 def main():
-    photo_intelligence = autotrain(500)
+    photo_intelligence = autotrain(96, 150)
     photo_intelligence.deactivate()
     time.sleep(5)
 
